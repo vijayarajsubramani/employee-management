@@ -9,6 +9,11 @@ const employeeStore = create((set) => ({
     return {
       employeeDetails: state?.employeeDetails?.map((employeeDetails) => employeeDetails.id === newItem.id ? newItem : employeeDetails)
     }
+  }),
+  deleteEmployee:(id)=>set((state)=>{
+    return{
+      employeeDetails:state?.employeeDetails?.filter((ele,index)=>ele.id !== id)
+    }
   })
 }));
 

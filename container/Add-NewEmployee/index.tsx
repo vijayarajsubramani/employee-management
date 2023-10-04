@@ -10,9 +10,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
-    employee_name: yup.string().required('Please enter the employee_name'),
-    employee_salary: yup.string().required('Please enter the employee_salary'),
-    employee_age: yup.string().required('Please enter the employee_age'),
+    employee_name: yup.string().trim().required('Please enter the employee_name').min(3).max(25),
+    employee_salary: yup.number().required('Please enter the employee_salary').positive().integer(),
+    employee_age: yup.number().required('Please enter the employee_age').positive().integer(),
     profile_image: yup.string()
 
 })

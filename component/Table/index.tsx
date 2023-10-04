@@ -8,7 +8,8 @@ import { useRouter } from "next/router"
 
 export default function DataTable({ rows }: any) {
     const router = useRouter()
-    const empId  = employeeStore((state) => state.empId);
+    const empId = employeeStore((state) => state.empId);
+    const deleteEmployee = employeeStore((state) => state.deleteEmployee);
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 130 },
@@ -21,11 +22,12 @@ export default function DataTable({ rows }: any) {
             width: 130,
         },
         {
-            field: 'actions', headerName: 'Actions', width: 130, renderCell: (params) => {
+            field: 'actions', headerName: 'Actions', width: 200, renderCell: (params) => {
                 return (
                     <>
-                        <button onClick={(e) => onButtonEdit(e, params.row)} style={{margin:'2px'}}> Edit</button>
-                        <button onClick={(e) => onButtonView(e, params.row)}> View</button>
+                        <button onClick={(e) => onButtonEdit(e, params.row)} style={{ margin: '2px' }}> Edit</button>
+                        <button onClick={(e) => onButtonView(e, params.row)} style={{ margin: '2px' }}> View</button>
+                        <button onClick={(e) => onDeleteEmployee(e, params.row)} style={{ margin: '2px' }}> Delete</button>
                     </>
 
                 );
@@ -37,11 +39,14 @@ export default function DataTable({ rows }: any) {
         empId(row)
         router.push(`/edit-employee/${row.id}`)
     };
-    const onButtonView=(e: any, row: any)=>{
+    const onButtonView = (e: any, row: any) => {
         e.stopPropagation();
         empId(row)
         router.push(`/view-employee/${row.id}`)
-
+    }
+    const onDeleteEmployee = (e: any, row: any) => {
+        e.stopPropagation();
+        deleteEmployee(row.id)
     }
     return (
         <div className={style.list}>
